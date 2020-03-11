@@ -14,7 +14,7 @@ CREATE DATABASE `electric_chamberlain` CHARSET utf8;
 | password |   varchar(20)    |                       |            密码，默认为空，为空时不生效            |
 | nickname |   varchar(20)    |         非空          |             用户昵称，默认为用户手机号             |
 |  money   | bigint unsigned  |         非空          |                 用户余额，默认为 0                 |
-| portrait | bigint unsigned  | 外键，关联到附件表 id |            用户头像，默认为默认头像(0)             |
+| portrait | bigint unsigned  | 外键，关联到附件表 id |            用户头像，默认为默认头像(1)             |
 |   type   | tinyint unsigned |         非空          | 用户类型，0 为普通用户，1 为电能采暖用户，默认为 0 |
 
 ```mysql
@@ -23,7 +23,7 @@ CREATE TABLE `user`(
     `password` VARCHAR(20),
     `nickname` VARCHAR(20) NOT NULL,
     `money` BIGINT UNSIGNED NOT NULL DEFAULT 0,
-    `portrait` BIGINT UNSIGNED NOT NULL DEFAULT 0,
+    `portrait` BIGINT UNSIGNED NOT NULL DEFAULT 1,
     `type` TINYINT UNSIGNED NOT NULL,
     PRIMARY KEY(`phone`),
     CONSTRAINT fk_user_attach FOREIGN KEY(`portrait`) REFERENCES `attach`(`id`)
@@ -177,7 +177,7 @@ CREATE TABLE `user`(
     `password` VARCHAR(20),
     `nickname` VARCHAR(20) NOT NULL,
     `money` BIGINT UNSIGNED NOT NULL DEFAULT 0,
-    `portrait` BIGINT UNSIGNED NOT NULL DEFAULT 0,
+    `portrait` BIGINT UNSIGNED NOT NULL DEFAULT 1,
     `type` TINYINT UNSIGNED NOT NULL,
     PRIMARY KEY(`phone`)
 )CHARSET utf8 ENGINE INNODB;

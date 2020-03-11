@@ -1,8 +1,8 @@
 # app 端
 
-## 1、API v1 接口说明
+## 1、API 接口说明
 
-- 接口基准地址：`http://127.0.0.1:8760/api/app/v1/`
+- 接口基准地址：`http://127.0.0.1:8760/api/app/`
 - 服务端已开启 CORS 跨域支持
 - API v1 认证统一使用 Token 认证
 - 需要授权的 API ，必须在请求头中使用 `Authorization` 字段提供 `token` 令牌
@@ -38,19 +38,38 @@
 
 - 响应数据
 
-| 参数名   | 参数类型 | 参数说明     | 备注                           |
-| -------- | -------- | ------------ | ------------------------------ |
-| phone    | String   | 用户手机     |                                |
-| nickname | String   | 用户昵称     |                                |
-| money    | int      | 用户余额     |                                |
-| portrait | String   | 用户头像位置 |                                |
-| type     | int      | 用户类型     | 0 为普通用户，1 为电能采暖用户 |
-| token    | String   | 令牌         | 基于 jwt 的令牌                |
+| 参数名         | 参数类型 | 参数说明 | 备注                           |
+| -------------- | -------- | -------- | ------------------------------ |
+| phone          | String   | 用户手机 |                                |
+| nickname       | String   | 用户昵称 |                                |
+| money          | long     | 用户余额 |                                |
+| portrait       | Object   | 用户头像 |                                |
+| - id           | long     | 附件 id  |                                |
+| - type         | int      | 附件类型 |                                |
+| - fileLocation | String   | 附件位置 |                                |
+| - context      | String   | 附件描述 |                                |
+| type           | int      | 用户类型 | 0 为普通用户，1 为电能采暖用户 |
+| token          | String   | 令牌     | 基于 jwt 的令牌                |
 
 - 响应数据
 
 ```json
-
+{
+    "code": 0,
+    "msg": "登录成功",
+    "data": {
+        "phone": "15502416971",
+        "nickname": "张三",
+        "money": 0,
+        "portrait": {
+            "id": 1,
+            "type": 0,
+            "fileLocation": "/xx",
+            "context": "xxxx"
+        },
+        "type": 0
+    }
+}
 ```
 
 ### 2.2、手机号登录/注册
