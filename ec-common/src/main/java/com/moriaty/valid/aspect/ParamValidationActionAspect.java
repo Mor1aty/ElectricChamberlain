@@ -1,6 +1,6 @@
-package com.moriaty.auth.aspect;
+package com.moriaty.valid.aspect;
 
-import com.moriaty.auth.bean.Method;
+import com.moriaty.valid.bean.Method;
 import com.moriaty.base.constant.CustomConstant;
 import com.moriaty.base.utils.ValueUtils;
 import com.moriaty.base.utils.WrapUtils;
@@ -25,13 +25,13 @@ import java.util.Objects;
  * @copyright ：Moriaty 版权所有 © 2019
  * @date 2019/11/15 11:16
  * @Description TODO
- * Authentication 注解切面处理
+ * ParamValidation 注解切面处理
  */
 @Aspect
 @Component
-public class AuthenticationActionAspect {
+public class ParamValidationActionAspect {
 
-    @Pointcut("@annotation(com.moriaty.auth.aspect.Authentication)")
+    @Pointcut("@annotation(com.moriaty.valid.aspect.ParamValidation)")
     public void pointcut() {
 
     }
@@ -43,8 +43,8 @@ public class AuthenticationActionAspect {
         // 获取当前正在执行的方法
         MethodSignature signature = (MethodSignature) pjp.getSignature();
         // 获取注解参数
-        Param[] authParams = classTarget.getMethod(signature.getName(), signature.getParameterTypes()).getAnnotation(Authentication.class).value();
-        // 获取 request response
+        Param[] authParams = classTarget.getMethod(signature.getName(), signature.getParameterTypes()).getAnnotation(ParamValidation.class).value();
+        // 获取 request
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
 
         // 获取传入参数

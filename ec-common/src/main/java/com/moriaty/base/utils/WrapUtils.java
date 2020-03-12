@@ -3,6 +3,7 @@ package com.moriaty.base.utils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.moriaty.base.wrap.WrapParams;
+import com.moriaty.login.storage.Token;
 
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -55,6 +56,12 @@ public class WrapUtils {
                 jsonObject.put(tempEnu, request.getParameter(tempEnu));
             }
         }
+        Enumeration<String> attrEnu = request.getAttributeNames();
+        while (attrEnu.hasMoreElements()) {
+            String tempEnu = attrEnu.nextElement();
+            jsonObject.put(tempEnu, request.getAttribute(tempEnu));
+        }
+
         return new WrapParams(jsonObject);
     }
 

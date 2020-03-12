@@ -2,6 +2,7 @@ package com.moriaty.base.wrap;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.moriaty.login.storage.Token;
 
 import javax.servlet.http.Part;
 import java.util.Set;
@@ -140,11 +141,21 @@ public class WrapParams {
 
     /**
      * 根据 key 获取对应 value，转化为 Part
+     *
      * @param key
      * @return Part
      */
     public Part getPartValue(String key) {
         return jsonObject.getObject(key, Part.class);
+    }
+
+    /**
+     * 根据 key 获取对应 value，转化为 Token
+     * @param key
+     * @return Token
+     */
+    public Token getTokenValue(String key) {
+        return jsonObject.getObject(key, Token.class);
     }
 
     /**

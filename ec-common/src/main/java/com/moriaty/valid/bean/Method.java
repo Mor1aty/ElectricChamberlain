@@ -1,4 +1,4 @@
-package com.moriaty.auth.bean;
+package com.moriaty.valid.bean;
 /**
  * @copyright ：Moriaty 版权所有 © 2019
  * @author 16计算机 Moriaty

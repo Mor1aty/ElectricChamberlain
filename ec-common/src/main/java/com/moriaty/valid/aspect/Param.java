@@ -1,6 +1,6 @@
-package com.moriaty.auth.aspect;
+package com.moriaty.valid.aspect;
 
-import com.moriaty.auth.bean.Method;
+import com.moriaty.valid.bean.Method;
 
 import java.lang.annotation.*;
 

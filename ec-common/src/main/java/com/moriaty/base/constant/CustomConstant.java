@@ -47,6 +47,11 @@ public final class CustomConstant {
         public static final String MSG_SUCCESS = "执行成功";
 
         /**
+         * 返回验证未过信息
+         */
+        public static final String MSG_TOKEN_FAILED = "Token 过期";
+
+        /**
          * 返回邮件成功信息
          */
         public static final String MSG_MAIL_SUCCESS = "邮件发送成功";
