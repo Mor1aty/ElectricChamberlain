@@ -20,11 +20,11 @@ CREATE DATABASE `electric_chamberlain` CHARSET utf8;
 ```mysql
 CREATE TABLE `user`(
 	`phone` VARCHAR(20),
-    `password` VARCHAR(20),
+    `password` VARCHAR(20) DEFAULT NULL,
     `nickname` VARCHAR(20) NOT NULL,
     `money` BIGINT UNSIGNED NOT NULL DEFAULT 0,
     `portrait` BIGINT UNSIGNED NOT NULL DEFAULT 1,
-    `type` TINYINT UNSIGNED NOT NULL,
+    `type` TINYINT UNSIGNED NOT NULL DEFAULT 0,
     PRIMARY KEY(`phone`),
     CONSTRAINT fk_user_attach FOREIGN KEY(`portrait`) REFERENCES `attach`(`id`)
 )CHARSET utf8 ENGINE INNODB;
@@ -174,11 +174,11 @@ CREATE TABLE `attach`(
 )CHARSET utf8 ENGINE INNODB;
 CREATE TABLE `user`(
 	`phone` VARCHAR(20),
-    `password` VARCHAR(20),
+    `password` VARCHAR(20) DEFAULT NULL,
     `nickname` VARCHAR(20) NOT NULL,
     `money` BIGINT UNSIGNED NOT NULL DEFAULT 0,
     `portrait` BIGINT UNSIGNED NOT NULL DEFAULT 1,
-    `type` TINYINT UNSIGNED NOT NULL,
+    `type` TINYINT UNSIGNED NOT NULL DEFAULT 0,
     PRIMARY KEY(`phone`)
 )CHARSET utf8 ENGINE INNODB;
 CREATE TABLE `apply`(

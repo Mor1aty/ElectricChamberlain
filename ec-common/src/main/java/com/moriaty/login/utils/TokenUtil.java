@@ -22,8 +22,12 @@ public class TokenUtil {
     // 获取 request 的 Token
     public static Token checkToken(String tokenCode) {
         Token token = Storage.get(tokenCode);
-        if (ValueUtils.valEmpty(token) || LocalDateTime.now().isBefore(token.generationTime.plusHours(token.effectiveTime))) {
-            // Token 未找到或过期
+        if (ValueUtils.valEmpty(token)) {
+            return null;
+        }
+
+        if (LocalDateTime.now().isAfter(token.generationTime.plusHours(token.effectiveTime))) {
+            // Token 过期
             Storage.remove(tokenCode);
             return null;
         }
@@ -33,7 +37,7 @@ public class TokenUtil {
     // 存入 Token
     public static String putTokenStorage(Token token) {
         token.generationTime = LocalDateTime.now();
-        if (ValueUtils.valEmpty(token.effectiveTime)) {
+        if (token.effectiveTime == 0) {
             token.effectiveTime = 5;
         }
         String tokenCode = UUID.randomUUID().toString().replaceAll("-", "");

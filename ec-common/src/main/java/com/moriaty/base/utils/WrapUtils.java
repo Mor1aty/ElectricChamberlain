@@ -5,11 +5,14 @@ import com.alibaba.fastjson.JSONObject;
 import com.moriaty.base.wrap.WrapParams;
 import com.moriaty.login.storage.Token;
 
+import javax.servlet.ServletException;
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
 
 import java.io.IOException;
 
+import java.util.Collection;
 import java.util.Enumeration;
 
 
@@ -34,7 +37,8 @@ public class WrapUtils {
      * @return WrapParams
      * @throws IOException
      */
-    public static WrapParams paramToWrapParams(HttpServletRequest request) throws IOException {
+    public static WrapParams paramToWrapParams(HttpServletRequest request) throws IOException, ServletException {
+
         JSONObject jsonObject = new JSONObject();
         ServletInputStream is = request.getInputStream();
         String paramString = ValueUtils.convertStreamToString(is);
@@ -42,27 +46,35 @@ public class WrapUtils {
         if (ValueUtils.valNotEmpty(paramString)) {
             jsonObject = JSON.parseObject(paramString);
         } else {
-//            Collection<Part> parts = request.getParts();
-//            if (ValueUtils.valNotEmpty(parts)) {
-//                Iterator<Part> iterator = parts.iterator();
-//                while (iterator.hasNext()) {
-//                    Part part = iterator.next();
-//                    jsonObject.put(part.getName(), part);
-//                }
-//            }
+
+            if (request.getHeader("content-type") != null &&
+                    (request.getHeader("content-type").contains("multipart/form-data")
+                            || request.getHeader("content-type").contains("multipart/mixed"))) {
+                Collection<Part> parts = request.getParts();
+                for (Part part : parts) {
+                    if (ValueUtils.valNotEmpty(part.getSubmittedFileName())) {
+                        jsonObject.put(part.getName(), part);
+                    }
+                }
+            }
+
             Enumeration<String> enu = request.getParameterNames();
             while (enu.hasMoreElements()) {
                 String tempEnu = enu.nextElement();
                 jsonObject.put(tempEnu, request.getParameter(tempEnu));
             }
         }
-        Enumeration<String> attrEnu = request.getAttributeNames();
-        while (attrEnu.hasMoreElements()) {
-            String tempEnu = attrEnu.nextElement();
-            jsonObject.put(tempEnu, request.getAttribute(tempEnu));
+
+        Enumeration<String> attributeNames = request.getAttributeNames();
+        while (attributeNames.hasMoreElements()) {
+            String attrName = attributeNames.nextElement();
+            if (attrName.contains("_loginToken")) {
+                jsonObject.put(attrName.split("_")[0], request.getAttribute(attrName));
+            }
         }
 
         return new WrapParams(jsonObject);
     }
+
 
 }

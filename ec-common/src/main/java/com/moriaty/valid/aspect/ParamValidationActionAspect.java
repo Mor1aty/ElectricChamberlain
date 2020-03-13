@@ -49,6 +49,7 @@ public class ParamValidationActionAspect {
 
         // 获取传入参数
         WrapParams wrapParams = WrapUtils.paramToWrapParams(request);
+
         // 如果没有传入参数
         if (ValueUtils.valEmpty(wrapParams)) {
             return WrapMapper.error(CustomConstant.Wrap.MSG_PARAM_EMPTY);
@@ -67,6 +68,7 @@ public class ParamValidationActionAspect {
                 return WrapMapper.error(paramKey + res);
             }
         }
+
         return pjp.proceed(new Object[]{wrapParams});
     }
 

@@ -3,21 +3,16 @@ package com.moriaty.ctrl;
 import com.moriaty.bean.UserToken;
 import com.moriaty.bean.back.LoginBack;
 import com.moriaty.login.aspect.NeedLogin;
-import com.moriaty.login.storage.Token;
-import com.moriaty.login.utils.TokenUtil;
 import com.moriaty.valid.aspect.ParamValidation;
 import com.moriaty.valid.aspect.Param;
 import com.moriaty.valid.bean.Method;
-import com.moriaty.base.utils.ValueUtils;
-import com.moriaty.base.wrap.WrapMapper;
 import com.moriaty.base.wrap.WrapParams;
 import com.moriaty.base.wrap.Wrapper;
-import com.moriaty.bean.db.User;
 import com.moriaty.service.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -38,29 +33,45 @@ public class UserCtrl {
     @PostMapping("login")
     @ParamValidation({@Param(value = "phone", method = Method.PHONE), @Param("password")})
     public Wrapper<LoginBack> login(WrapParams wrapParams) {
-        User user = userService.getUserByPhoneAndPassword(wrapParams.getString("phone"), wrapParams.getString("password"));
-        if (ValueUtils.valEmpty(user)) {
-            return WrapMapper.error("手机号或密码错误");
-        }
-        UserToken userToken = new UserToken();
-        userToken.setPhone(user.getPhone());
-
-        String tokenCode = TokenUtil.putTokenStorage(userToken);
-
-        LoginBack loginBack = new LoginBack();
-        BeanUtils.copyProperties(user, loginBack);
-        loginBack.setToken(tokenCode);
-
-        return WrapMapper.ok("登录成功", loginBack);
+        return userService.login(wrapParams.getString("phone"), wrapParams.getString("password"));
     }
 
-    @GetMapping("test")
+    // 手机发送短信
+    @GetMapping("phone")
+    @ParamValidation(@Param(value = "phone", method = Method.PHONE))
+    public Wrapper<String> phoneMsg(WrapParams wrapParams) {
+        return userService.phoneMsg(wrapParams.getString("phone"));
+    }
+
+    // 手机验证码登录
+    @PostMapping("phone")
+    @ParamValidation({@Param(value = "phone", method = Method.PHONE), @Param(value = "code", method = Method.NUMBER)})
+    public Wrapper<LoginBack> phoneLogin(WrapParams wrapParams) {
+        return userService.phoneLogin(wrapParams.getString("phone"), wrapParams.getIntValue("code"));
+    }
+
+    // 修改昵称
+    @PutMapping("nickname")
     @NeedLogin("user")
-    @ParamValidation()
-    public Wrapper<String> test(WrapParams wrapParams) {
-        UserToken user = (UserToken) wrapParams.getTokenValue("user");
-        System.out.println(user);
-        return WrapMapper.ok("ok");
+    @ParamValidation(@Param("nickname"))
+    public Wrapper<String> nickname(WrapParams wrapParams) {
+        return userService.nickname(((UserToken) wrapParams.getTokenValue("user")).getPhone(), wrapParams.getString("nickname"));
     }
 
+    // 修改头像
+    @PutMapping("portrait")
+    @NeedLogin("user")
+    @ParamValidation(@Param("portrait"))
+    public Wrapper<String> portrait(WrapParams wrapParams) {
+        return userService.portrait(((UserToken) wrapParams.getTokenValue("user")).getPhone(), wrapParams.getPartValue("portrait"));
+    }
+
+    // 修改密码
+    @PostMapping("password")
+    @NeedLogin("user")
+    @ParamValidation({@Param("oldPass"), @Param("newPass")})
+    public Wrapper<String> password(WrapParams wrapParams) {
+        return userService.password(((UserToken) wrapParams.getTokenValue("user")).getPhone(),
+                wrapParams.getString("oldPass"), wrapParams.getString("newPass"));
+    }
 }

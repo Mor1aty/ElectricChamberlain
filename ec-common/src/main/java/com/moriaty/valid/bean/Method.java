@@ -8,5 +8,5 @@ package com.moriaty.valid.bean;
  *   Param 注解 method 枚举
  */
 public enum Method {
-    EMAIL,NOTNULL,NUMBER,PHONE
+    EMAIL,NOTNULL,NUMBER,PHONE,FILE
 }

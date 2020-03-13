@@ -31,6 +31,16 @@ public class WrapParams {
     }
 
     /**
+     * 存入字段
+     *
+     * @param key
+     * @param value
+     */
+    public void put(String key, Object value) {
+        jsonObject.put(key, value);
+    }
+
+    /**
      * 获取参数数量
      *
      * @return int
@@ -151,6 +161,7 @@ public class WrapParams {
 
     /**
      * 根据 key 获取对应 value，转化为 Token
+     *
      * @param key
      * @return Token
      */

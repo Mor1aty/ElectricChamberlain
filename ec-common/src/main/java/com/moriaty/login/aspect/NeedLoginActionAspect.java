@@ -2,7 +2,9 @@ package com.moriaty.login.aspect;
 
 import com.moriaty.base.constant.CustomConstant;
 import com.moriaty.base.utils.ValueUtils;
+import com.moriaty.base.utils.WrapUtils;
 import com.moriaty.base.wrap.WrapMapper;
+import com.moriaty.base.wrap.WrapParams;
 import com.moriaty.login.storage.Token;
 import com.moriaty.login.utils.TokenUtil;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -44,7 +46,7 @@ public class NeedLoginActionAspect {
         // 获取 request
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
         // 获取注解参数
-        String value = classTarget.getMethod(signature.getName(), signature.getParameterTypes()).getAnnotation(NeedLogin.class).value();
+        String tokenCode = classTarget.getMethod(signature.getName(), signature.getParameterTypes()).getAnnotation(NeedLogin.class).value();
 
         // 调用方法验证 request 的 Authorization
         Token token = TokenUtil.checkToken(request.getHeader("authorization"));
@@ -52,7 +54,7 @@ public class NeedLoginActionAspect {
             return WrapMapper.error(CustomConstant.Wrap.MSG_TOKEN_FAILED);
         }
 
-        request.setAttribute(value, token);
+        request.setAttribute(tokenCode + "_loginToken", token);
         return pjp.proceed();
     }
 }
