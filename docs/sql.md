@@ -8,14 +8,14 @@ CREATE DATABASE `electric_chamberlain` CHARSET utf8;
 
 ## 用户表（user）
 
-|  字段名  |       类型       |         约束          |                        描述                        |
-| :------: | :--------------: | :-------------------: | :------------------------------------------------: |
-|  phone   |   varchar(20)    |         主键          |                 用户手机，唯一登录                 |
-| password |   varchar(20)    |                       |            密码，默认为空，为空时不生效            |
-| nickname |   varchar(20)    |         非空          |             用户昵称，默认为用户手机号             |
-|  money   | bigint unsigned  |         非空          |                 用户余额，默认为 0                 |
-| portrait | bigint unsigned  | 外键，关联到附件表 id |            用户头像，默认为默认头像(1)             |
-|   type   | tinyint unsigned |         非空          | 用户类型，0 为普通用户，1 为电能采暖用户，默认为 0 |
+|  字段名  |       类型       |         约束          |                             描述                             |
+| :------: | :--------------: | :-------------------: | :----------------------------------------------------------: |
+|  phone   |   varchar(20)    |         主键          |                      用户手机，唯一登录                      |
+| password |   varchar(20)    |                       |                 密码，默认为空，为空时不生效                 |
+| nickname |   varchar(20)    |         非空          |                  用户昵称，默认为用户手机号                  |
+|  money   | bigint unsigned  |         非空          |                      用户余额，默认为 0                      |
+| portrait | bigint unsigned  | 外键，关联到附件表 id |                 用户头像，默认为默认头像(1)                  |
+|   type   | tinyint unsigned |         非空          | 用户类型，0 为普通用户，1 为电能采暖用户，默认为 0，10 为申请中状态 |
 
 ```mysql
 CREATE TABLE `user`(
@@ -34,14 +34,14 @@ CREATE TABLE `user`(
 
 
 
-|   字段名   |       类型       |         约束          |                     描述                     |
-| :--------: | :--------------: | :-------------------: | :------------------------------------------: |
-|     id     | bigint unsigned  |         主键          |              申请 id，自增主键               |
-|    user    |   varchar(20)    | 外键，关联到用户表 id |                   申请用户                   |
-|    type    |       int        |         非空          | 申请类型，0 为普通用户升级为电能采暖用户申请 |
-|  context   |   varchar(255)   |         非空          |                   申请内容                   |
-|  is_pass   | tinyint unsigned |         非空          |  通过标记，0 为未通过，1 为已通过，默认为 0  |
-| apply_time |     datetime     |         非空          |                   申请时间                   |
+|   字段名   |       类型       |           约束           |                     描述                     |
+| :--------: | :--------------: | :----------------------: | :------------------------------------------: |
+|     id     | bigint unsigned  |           主键           |              申请 id，自增主键               |
+|    user    |   varchar(20)    | 外键，关联到用户表 phone |                   申请用户                   |
+|    type    |       int        |           非空           | 申请类型，0 为普通用户升级为电能采暖用户申请 |
+|  context   |   varchar(255)   |           非空           |                   申请内容                   |
+|  is_pass   | tinyint unsigned |           非空           |  通过标记，0 为未通过，1 为已通过，默认为 0  |
+| apply_time |     datetime     |           非空           |                   申请时间                   |
 
 ```mysql
 CREATE TABLE `apply`(
@@ -112,7 +112,7 @@ CREATE TABLE `electricity_price`(
 |     type      |       int        | 非空 |      活动类型，0 为发红包      |
 | money_section |   varchar(50)    | 非空 |  金额区间，用 - 分割，单位元   |
 |    is_end     | tinyint unsigned | 非空 | 结束标记，0 为未结束，1 为结束 |
-| activity_time |     datetime     | 非空 |            活动时间            |
+| activity_time |     datetime     | 非空 |          活动截至时间          |
 
 ```mysql
 CREATE TABLE `activity`(

@@ -140,6 +140,15 @@ public class WrapParams {
     }
 
     /**
+     * 根据 key 获取对应 value，转化为 long
+     * @param key
+     * @return
+     */
+    public long getLongValue(String key) {
+        return jsonObject.getLongValue(key);
+    }
+
+    /**
      * 根据 key 获取对应 value，转化为 String
      *
      * @param key

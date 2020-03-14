@@ -3,6 +3,8 @@ package com.moriaty.mapper;
 import com.moriaty.bean.db.User;
 import org.apache.ibatis.annotations.*;
 
+import java.util.List;
+
 /**
  * @author 16计算机 Moriaty
  * @version 1.0
@@ -30,6 +32,10 @@ public interface UserMapper {
     })
     User findUserByPhone(@Param("phone") String phone);
 
+    // 获取所有用户
+    @Select("SELECT phone FROM user")
+    List<User> findAllUserPhone();
+
     // 生成用户
     @Insert("INSERT INTO user(phone,nickname) VALUES(#{phone},#{phone})")
     int insertUser(@Param("phone") String phone);
@@ -46,4 +52,11 @@ public interface UserMapper {
     @Update("UPDATE user SET password = #{newPass} WHERE phone = #{phone} AND password = #{oldPass}")
     int updatePassword(@Param("phone") String phone, @Param("oldPass") String oldPass, @Param("newPass") String newPass);
 
+    // 修改用户身份状态为申请中
+    @Update("UPDATE user SET type = 10 WHERE phone = #{phone}")
+    int updateUserApplyType(@Param("phone") String phone);
+
+    // 金钱改变
+    @Update("UPDATE user SET money = money + #{change} WHERE phone = #{phone}")
+    int updateMoney(@Param("phone") String phone, @Param("change") long change);
 }

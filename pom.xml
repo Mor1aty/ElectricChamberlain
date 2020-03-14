@@ -10,6 +10,7 @@
     <modules>
         <module>ec-common</module>
         <module>ec-provider</module>
+        <module>ec-activity</module>
     </modules>
     <packaging>pom</packaging>
 

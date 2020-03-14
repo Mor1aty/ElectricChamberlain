@@ -10,10 +10,7 @@ import com.moriaty.base.wrap.WrapParams;
 import com.moriaty.base.wrap.Wrapper;
 import com.moriaty.service.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author 16计算机 Moriaty
@@ -24,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  * 用户 Ctrl
  */
 @RestController
+@RequestMapping("user")
 @AllArgsConstructor
 public class UserCtrl {
 

@@ -14,6 +14,8 @@ import com.moriaty.utils.PhoneUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import javax.servlet.http.Part;
 import java.io.*;
@@ -92,6 +94,7 @@ public class UserService {
     }
 
     // 修改头像
+    @Transactional
     public Wrapper<String> portrait(String phone, Part file) {
         String filename = UUID.randomUUID().toString().replaceAll("-", "") + "_" + file.getSubmittedFileName();
         String path = System.getProperty("user.dir") + File.separator + "attach" + File.separator;
@@ -117,6 +120,7 @@ public class UserService {
             }
 
             if (userMapper.updatePortrait(attach.getId(), phone) == 0) {
+                TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
                 return WrapMapper.error("修改失败");
             }
             return WrapMapper.ok("修改成功");

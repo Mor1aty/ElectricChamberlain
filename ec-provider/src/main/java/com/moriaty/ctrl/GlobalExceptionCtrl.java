@@ -3,6 +3,7 @@ package com.moriaty.ctrl;
 import com.moriaty.base.wrap.WrapMapper;
 import com.moriaty.base.wrap.Wrapper;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,9 +20,17 @@ import org.springframework.web.bind.annotation.RestController;
 @ControllerAdvice
 public class GlobalExceptionCtrl {
 
+    // 请求方法异常处理
+    @ResponseBody
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public Wrapper<String> exceptionHandler() {
+        return WrapMapper.error("请求方法错误");
+    }
+
+    // 全局异常处理
     @ResponseBody
     @ExceptionHandler(Exception.class)
-    public Wrapper<String> exceptionHandler(Exception e) {
+    public Wrapper<String> globalExceptionHandler(Exception e) {
         e.printStackTrace();
         return WrapMapper.error("服务器异常");
     }
