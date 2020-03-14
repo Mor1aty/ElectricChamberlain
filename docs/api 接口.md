@@ -59,15 +59,16 @@
     "msg": "登录成功",
     "data": {
         "phone": "15502416971",
-        "nickname": "张三",
-        "money": 0,
+        "nickname": "李四",
+        "money": 10,
         "portrait": {
-            "id": 1,
+            "id": 2,
             "type": 0,
-            "fileLocation": "/xx",
-            "context": "xxxx"
+            "fileLocation": "D:\\File\\ElectricChamberlain\\attach\\df772143deb541efa437930f440cc3d2_4397b691bfa05dc27b2487e67a91dbf8.jpg",
+            "context": "15502416971的头像"
         },
-        "type": 0
+        "type": 10,
+        "token": "7985449be95c47509161200644ad4b28"
     }
 }
 ```
@@ -91,7 +92,11 @@
 - 响应数据
 
 ```json
-
+{
+    "code": 0,
+    "msg": "短信发送成功",
+    "data": null
+}
 ```
 
 ### 2.3、手机号验证
@@ -123,7 +128,23 @@
 - 响应数据
 
 ```json
-
+{
+    "code": 0,
+    "msg": "登录成功",
+    "data": {
+        "phone": "15502416971",
+        "nickname": "李四",
+        "money": 10,
+        "portrait": {
+            "id": 2,
+            "type": 0,
+            "fileLocation": "D:\\File\\ElectricChamberlain\\attach\\df772143deb541efa437930f440cc3d2_4397b691bfa05dc27b2487e67a91dbf8.jpg",
+            "context": "15502416971的头像"
+        },
+        "type": 10,
+        "token": "eb4b7e7a23ec4dfba3fcb2f13d6776ef"
+    }
+}
 ```
 
 ### 2.4、修改呢称
@@ -145,7 +166,11 @@
 - 响应数据
 
 ```json
-
+{
+    "code": 0,
+    "msg": "修改成功",
+    "data": null
+}
 ```
 
 ### 2.5、修改头像
@@ -167,7 +192,11 @@
 - 响应数据
 
 ```json
-
+{
+    "code": 0,
+    "msg": "修改成功",
+    "data": null
+}
 ```
 
 ### 2.6、修改密码
@@ -190,7 +219,11 @@
 - 响应数据
 
 ```json
-
+{
+    "code": 0,
+    "msg": "修改成功",
+    "data": null
+}
 ```
 
 ## 3、申请
@@ -214,7 +247,11 @@
 - 响应数据
 
 ```json
-
+{
+    "code": 0,
+    "msg": "申请成功",
+    "data": null
+}
 ```
 
 
@@ -245,7 +282,11 @@
 - 响应数据
 
 ```json
-
+{
+    "code": 0,
+    "msg": "转账成功",
+    "data": null
+}
 ```
 
 ## 5、电价
@@ -274,7 +315,19 @@
 - 响应数据
 
 ```json
-
+{
+    "code": 0,
+    "msg": "查询成功",
+    "data": [
+        {
+            "id": 3,
+            "ordinaryMoney": 20,
+            "discountMoney": 10,
+            "city": "辽宁省大连市",
+            "priceTime": "2020-03-14T14:40:38"
+        }
+    ]
+}
 ```
 
 ## 6、活动
@@ -299,3 +352,21 @@
 | - nickname | String   | 用户昵称 |         |
 
 - 响应数据
+
+```json
+{
+    "code": 0,
+    "msg": "获取成功",
+    "data": {
+        "money": 5,
+        "payer": {
+            "phone": "1000",
+            "nickname": "电价管家",
+            "money": 0,
+            "portrait": null,
+            "type": 0
+        }
+    }
+}
+```
+

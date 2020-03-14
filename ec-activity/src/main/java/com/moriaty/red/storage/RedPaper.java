@@ -13,7 +13,7 @@ import java.util.HashMap;
 public class RedPaper {
     private static HashMap<String, Long> storage = new HashMap<>();
 
-    public static long get(String phone) {
+    public static Long get(String phone) {
         return storage.get(phone);
     }
 

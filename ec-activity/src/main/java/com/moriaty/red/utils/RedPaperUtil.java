@@ -25,7 +25,7 @@ public class RedPaperUtil {
     }
 
     // 获取红包
-    public static long getRedPaper(String phone) {
+    public static Long getRedPaper(String phone) {
         return RedPaper.get(phone);
     }
 
