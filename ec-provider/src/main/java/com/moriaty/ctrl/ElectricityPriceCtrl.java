@@ -7,7 +7,7 @@ import com.moriaty.service.ElectricityPriceService;
 import com.moriaty.valid.aspect.Param;
 import com.moriaty.valid.aspect.ParamValidation;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,7 +28,7 @@ public class ElectricityPriceCtrl {
     private ElectricityPriceService electricityPriceService;
 
     // 电价展示
-    @GetMapping("electricityPrice")
+    @PostMapping("electricityPrice")
     @ParamValidation({@Param("city"), @Param("startTime"), @Param("endTime")})
     public Wrapper<List<ElectricityPrice>> electricityPrice(WrapParams wrapParams) {
         return electricityPriceService.electricityPrice(wrapParams.getString("city"),
