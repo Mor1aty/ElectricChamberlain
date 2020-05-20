@@ -49,7 +49,7 @@
 | - fileLocation | String   | 附件位置 |                                |
 | - context      | String   | 附件描述 |                                |
 | type           | int      | 用户类型 | 0 为普通用户，1 为电能采暖用户 |
-| token          | String   | 令牌     | 基于 jwt 的令牌                |
+| token          | String   | 令牌     |                                |
 
 - 响应数据
 
@@ -112,18 +112,18 @@
 
 - 响应数据
 
-| 参数名         | 参数类型 | 参数说明 | 备注                           |
-| -------------- | -------- | -------- | ------------------------------ |
-| phone          | String   | 用户手机 |                                |
-| nickname       | String   | 用户昵称 |                                |
-| money          | long     | 用户余额 |                                |
-| portrait       | Object   | 用户头像 |                                |
-| - id           | long     | 附件 id  |                                |
-| - type         | int      | 附件类型 |                                |
-| - fileLocation | String   | 附件位置 |                                |
-| - context      | String   | 附件描述 |                                |
-| type           | int      | 用户类型 | 0 为普通用户，1 为电能采暖用户 |
-| token          | String   | 令牌     | 基于 jwt 的令牌                |
+| 参数名         | 参数类型 | 参数说明 | 备注                                              |
+| -------------- | -------- | -------- | ------------------------------------------------- |
+| phone          | String   | 用户手机 |                                                   |
+| nickname       | String   | 用户昵称 |                                                   |
+| money          | long     | 用户余额 |                                                   |
+| portrait       | Object   | 用户头像 |                                                   |
+| - id           | long     | 附件 id  |                                                   |
+| - type         | int      | 附件类型 |                                                   |
+| - fileLocation | String   | 附件位置 |                                                   |
+| - context      | String   | 附件描述 |                                                   |
+| type           | int      | 用户类型 | 0 为普通用户，1 为电能采暖用户，10 为等待升级用户 |
+| token          | String   | 令牌     | 基于 jwt 的令牌                                   |
 
 - 响应数据
 

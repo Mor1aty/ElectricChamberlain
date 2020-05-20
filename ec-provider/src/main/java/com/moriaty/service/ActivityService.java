@@ -40,4 +40,13 @@ public class ActivityService {
         RedPaperUtil.removeRedPaper(phone);
         return WrapMapper.ok("获取成功", redPaperBack);
     }
+
+    // 查询每日红包
+    public Wrapper<String> checkRedPaper(String phone) {
+        if (ValueUtils.valEmpty(RedPaperUtil.getRedPaper(phone))) {
+            return WrapMapper.ok("暂时没有红包了哦");
+        } else {
+            return WrapMapper.ok("红包可领取");
+        }
+    }
 }

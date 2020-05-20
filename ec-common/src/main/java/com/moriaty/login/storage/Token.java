@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  * Token bean
  */
 public class Token {
-    // 有效时间，单位:时
+    // 有效时间，单位:时，-1 为永久存储
     public long effectiveTime;
     // 生成时间
     public LocalDateTime generationTime;

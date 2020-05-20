@@ -25,7 +25,10 @@ public class TokenUtil {
         if (ValueUtils.valEmpty(token)) {
             return null;
         }
-
+        if(token.effectiveTime == -1){
+            // 永久存储
+            return token;
+        }
         if (LocalDateTime.now().isAfter(token.generationTime.plusHours(token.effectiveTime))) {
             // Token 过期
             Storage.remove(tokenCode);
